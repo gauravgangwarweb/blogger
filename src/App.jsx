@@ -1,7 +1,8 @@
 import { Provider } from "react-redux"
 import Navbar from "./components/Navbar"
 import store from "./redux/store"
-import { BrowserRouter, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
 
 function App() {
   return (
@@ -9,9 +10,9 @@ function App() {
       <BrowserRouter>
         <div className="main-bg">
           <Navbar />
-          {/* <Routes>
-
-          </Routes> */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
         </div>
       </BrowserRouter>
     </Provider>
