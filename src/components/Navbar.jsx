@@ -1,7 +1,20 @@
 import { motion, useInView } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 const Navbar = () => {
+    const location = useLocation()
+    const [loginPage, setLoginPage] = useState(false)
     const image = ""
+
+    useEffect(() => {
+        if (location.pathname === "/login") {
+            setLoginPage(true);
+        } else {
+            setLoginPage(false);
+        }
+    }, [location.pathname]);
+
     return (
         <motion.div
             className="w-full h-[76px] px-14 py-5 bg-white flex justify-between items-center"
@@ -13,7 +26,7 @@ const Navbar = () => {
             {
                 image ?
                     <img src="avtar.jpeg" alt="avatar" /> :
-                    <button className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</button>
+                    (loginPage ? <p>Excited..</p> : <button className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</button>)
             }
         </motion.div>
     );
