@@ -3,10 +3,13 @@ import LoginComponent from "../components/LoginComponent";
 import { motion, useInView } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import RegisterComponent from "../components/RegisterComponent";
+import Cookies from "js-cookie";
 
 const Login = () => {
     const ref = useRef()
     const isInView = useInView(ref)
+    const user = Cookies.get("id")
 
     return (
         <div
@@ -21,8 +24,12 @@ const Login = () => {
                 transition={{delay: 0.5}}
             >
             </motion.div>
-            <div className="w-full md:w-1/3 flex flex-col justify-center items-center">
+            <div className={user ? "w-full md:w-1/3 flex flex-col justify-center items-center": "hidden"}>
+                <p>You are already logged in</p>
+            </div>
+            <div className={!user ? "w-full md:w-1/3 flex flex-col justify-center items-center" : "hidden"}>
                 <LoginComponent />
+                <RegisterComponent />
             </div>
         </div>
     );
