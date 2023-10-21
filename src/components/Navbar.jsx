@@ -1,4 +1,5 @@
 import { motion, useInView } from "framer-motion";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
@@ -6,8 +7,8 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
     const location = useLocation()
     const [loginPage, setLoginPage] = useState(false)
-    const image = ""
-
+    const image = Cookies.get("profileImg")
+    
     useEffect(() => {
         if (location.pathname === "/login") {
             setLoginPage(true);
@@ -26,7 +27,7 @@ const Navbar = () => {
             <h4 className="text-3xl pacifico font-extrabold">Blogger</h4>
             {
                 image ?
-                    <img src="avtar.jpeg" alt="avatar" /> :
+                    <img src="avtar.jpeg" alt="avatar" className="w-[45px] rounded-full" /> :
                     (loginPage ? <p>Excited..</p> : <Link to="/login" className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</Link>)
             }
         </motion.div>
