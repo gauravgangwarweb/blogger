@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const location = useLocation()
@@ -26,7 +27,7 @@ const Navbar = () => {
             {
                 image ?
                     <img src="avtar.jpeg" alt="avatar" /> :
-                    (loginPage ? <p>Excited..</p> : <button className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</button>)
+                    (loginPage ? <p>Excited..</p> : <Link to="/login" className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</Link>)
             }
         </motion.div>
     );
