@@ -7,10 +7,10 @@ export const authSlice = createSlice({
         register: true
     },
     reducers: {
-        login: (state, link) => {
+        setLogin: (state, link) => {
             state.login = link.payload
         },
-        register: (state, link) => {
+        setRegister: (state, link) => {
             state.register = link.payload
         }
     }
