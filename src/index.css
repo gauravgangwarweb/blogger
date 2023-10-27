@@ -76,3 +76,14 @@ label {
     transform:  translateX(150%) rotate(360deg);
   }
 }
+
+.ql-container.ql-snow {
+  border: none;
+  height: 250px;
+  overflow-y: scroll;
+  font-size: medium;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  display: none;
+}
