@@ -1,26 +1,23 @@
 import axios from "axios"
 
-const cloudName = import.meta.env.VITE_CLOUD_NAME
-const upload_preset = import.meta.env.VITE_UPLOAD_PRESET
-const apiKey = import.meta.env.VITE_API_KEY
-const apiSecret = import.meta.env.VITE_API_SECRET
-
 export const imageUpload = async (file) => {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('upload_preset', upload_preset)
-    try {
+    let body = new FormData()
+    body.set("key", "95338f310e1517174c26d51f186c9e6e")
+    body.append("image", file)
+
+    try{
         const response = await axios.post(
-            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-            formData
+            "https://api.imgbb.com/1/upload",
+            body
         )
-        console.log(response);
         const data = {
-            url: response.data.url,
-            publicId: response.data.public_id
+            url: response.data.data.display_url,
+            publicId: response.data.data.image.name,
         }
+        console.log(data)
         return data
-    } catch (error) {
-        console.log("Error while uploading")
+    }
+    catch(error){
+        console.log(error);
     }
 }

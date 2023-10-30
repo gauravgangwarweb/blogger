@@ -24,7 +24,7 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1 }}
         >
-            <h4 className="text-3xl pacifico font-extrabold">Blogger</h4>
+            <Link to="/posts" className="text-3xl pacifico font-extrabold">Blogger</Link>
             {
                 image ?
                     <img src="avtar.jpeg" alt="avatar" className="w-[45px] rounded-full" /> :

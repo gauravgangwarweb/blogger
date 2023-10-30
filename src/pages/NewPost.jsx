@@ -2,32 +2,43 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { imageUpload } from "../assets/clodinaryFunction";
-import { ToastContainer } from "react-toastify";
+import { Slide, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import axios from "axios";
 import baseUrl from "../api/baseUrl";
+import { useEffect } from "react";
 
 function NewPost() {
     const [formData, setFormData] = useState({
         title: "",
         imageUrl: "",
         publicId: "",
-        body: "",
-        userId: ""
+        userId: "",
+        body: ""
     })
-    console.log(formData)
     const [isLoading, setIsLoading] = useState(false)
-    const token = Cookies.get("token") || undefined;
+    const [token, setToken] = useState(undefined)
+    const user = Cookies.get("id") || undefined
     const navigate = useNavigate();
-
+    
+    useEffect(() => {
+        const token = Cookies.get("token") || undefined;
+        setToken(token)
+        if(user){
+            setFormData({
+                ...formData,
+                userId: user
+            })
+        }
+    }, [])
+    
     const handleImageUpload = async (e) => {
         e.preventDefault();
         const file = e.target.files[0]
         const data = await imageUpload(file)
-        console.log(data)
-        if(data){
+        if (data) {
             setFormData({
                 ...formData,
                 imageUrl: data.url,
@@ -40,9 +51,8 @@ function NewPost() {
         e.preventDefault()
         setIsLoading(true)
         const toastId = "post"
-        console.log(formData);
 
-        if(!postData.title || !postData.publicId || !postData.imageUrl || !postData.userId || !postData.body){
+        if (!formData.title || !formData.publicId || !formData.imageUrl || !formData.userId || !formData.body) {
             setIsLoading(false)
             toast.error("Some of the post fields are empty. Please fill in all required fields.", {
                 position: toast.POSITION.TOP_CENTER,
@@ -52,14 +62,39 @@ function NewPost() {
             await axios.post(`${baseUrl}/post/new`, formData, {
                 headers: {
                     Authorization: token,
-                }
+                },
             })
+                .then((res) => {
+                    setIsLoading(false)
+                    console.log(res);
+                    toast.success(res.data.message, {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        toastId,
+                        transition: Slide
+                    })
+                    setTimeout(() => {
+                        navigate("/posts")
+                    }, 500)
+                })
+                .catch((error) => {
+                    console.error(error)
+                    setIsLoading(false)
+                    toast.error(error, {
+                        position: toast.POSITION.TOP_CENTER,
+                        toastId
+                    })
+                })
         }
     }
 
     return (
         <div
-        className="w-full h-[calc(100vh-76px)]"
+            className="w-full h-[calc(100vh-76px)]"
         >
             <div className="toast-container"><ToastContainer limit={1} /></div>
             <div className="pt-20 px-8 gap-2 flex flex-col items-center">
@@ -80,10 +115,12 @@ function NewPost() {
                         name="title"
                         placeholder="Title"
                         className="text-4xl border placeholder:pl-1 crimson w-full px-2 py-1"
-                        onChange={(e) => { setFormData({
-                            ...formData,
-                            title: e.target.value
-                        }) }}
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                title: e.target.value
+                            })
+                        }}
                     />
                     <div className="border-black border w-full">
                         <ReactQuill
