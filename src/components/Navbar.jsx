@@ -19,7 +19,7 @@ const Navbar = () => {
 
     return (
         <motion.div
-            className="w-full h-[76px] px-14 py-5 bg-white flex justify-between items-center"
+            className="w-full h-[76px] md:px-14 px-2 py-5 bg-white flex justify-between items-center"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1 }}

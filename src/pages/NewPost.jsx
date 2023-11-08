@@ -22,7 +22,6 @@ function NewPost() {
     const [token, setToken] = useState(undefined)
     const user = Cookies.get("id") || undefined
     const navigate = useNavigate();
-    
     useEffect(() => {
         const token = Cookies.get("token") || undefined;
         setToken(token)

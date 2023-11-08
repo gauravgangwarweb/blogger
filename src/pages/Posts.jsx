@@ -4,13 +4,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import baseUrl from "../api/baseUrl"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Unauthorized from "../components/Unauthorized";
 import { useDispatch } from "react-redux";
 import { setPost } from "../redux/reducers/postSlice";
 
 const Posts = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const ref = useRef()
     const isInView = useInView(ref)
@@ -30,7 +31,7 @@ const Posts = () => {
                 setIsLoading(false)
             })
     }, [])
-
+    console.log(data)
     return (
         <>
             {   
@@ -51,9 +52,9 @@ const Posts = () => {
                             </div>
                             : data.map((post) => (
                                 <div
-                                    key={post.id}
+                                    key={post._id}
                                     className="bg-white flex w-full px-3 py-3 rounded-lg cursor-pointer"
-                                    onClick={() => dispatch(setPost(post.id))}
+                                    onClick={() => {dispatch(setPost(post._id)); navigate("/post")}}
                                 >
                                     <div className="w-2/6">
                                         <img

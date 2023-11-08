@@ -7,7 +7,7 @@ export const postSlice = createSlice({
     },
     reducers: {
         setPost: (state, link) => {
-            state.postId = state.link
+            state.postId = link.payload
         }
     }
 })
