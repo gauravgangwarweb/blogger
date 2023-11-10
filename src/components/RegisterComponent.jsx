@@ -8,7 +8,6 @@ import { Slide, toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const RegisterComponent = () => {
-    const navigation = useNavigate()
     const ref = useRef()
     const isInView = useInView(ref)
     const dispatch = useDispatch()
@@ -44,7 +43,9 @@ const RegisterComponent = () => {
                     transition: Slide
                 })
                 setIsLoading(false)
-                navigation("/login")
+                setTimeout(() => {
+                    dispatch(setRegister(true))
+                  }, 1000);
             })
             .catch((error) => {
                 setIsLoading(false)
@@ -92,7 +93,7 @@ const RegisterComponent = () => {
     }
 
     const handleClick = () => {
-        dispatch(setRegister(false))
+        dispatch(setRegister(true))
     }
 
     return (
@@ -200,7 +201,7 @@ const RegisterComponent = () => {
                     className="text-red-500 cursor-pointer"
                     onClick={handleClick}
                 >
-                    Register
+                    Login
                 </span>
             </motion.p>
         </div>

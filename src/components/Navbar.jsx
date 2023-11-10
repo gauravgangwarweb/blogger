@@ -6,14 +6,16 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const location = useLocation()
-    const [loginPage, setLoginPage] = useState(false)
+    const [pathname, setPathname] = useState(false)
     const image = Cookies.get("profileImg")
     
     useEffect(() => {
         if (location.pathname === "/login") {
-            setLoginPage(true);
+            setPathname("login");
+        } else if(location.pathname === "/posts") {
+            setPathname("posts");
         } else {
-            setLoginPage(false);
+            setPathname("/")
         }
     }, [location.pathname]);
 
@@ -25,11 +27,16 @@ const Navbar = () => {
             transition={{ duration: 1 }}
         >
             <Link to="/posts" className="text-3xl pacifico font-extrabold">Blogger</Link>
+            <div className="flex justify-center items-center gap-4">
+            {
+                pathname == "posts" ? <Link to="/new-post" className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg md:hidden">Post</Link> : <p></p>
+            }
             {
                 image ?
                     <img src="avtar.jpeg" alt="avatar" className="w-[45px] rounded-full" /> :
-                    (loginPage ? <p>Excited..</p> : <Link to="/login" className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</Link>)
+                    (pathname == "login" ? <p>Excited..</p> : <Link to="/login" className="bg-red-500 hover:bg-red-600 px-4 text-white text-lg py-1 font-semibold rounded-lg">Login</Link>)
             }
+            </div>
         </motion.div>
     );
 }

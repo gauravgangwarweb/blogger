@@ -7,7 +7,6 @@ import DOMPurify from "dompurify";
 
 const Post = () => {
     const postId = useSelector(state => state.post.postId)
-    console.log(postId);
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
 
@@ -45,11 +44,11 @@ const Post = () => {
             {
                 isLoading ?
                     <p>Loading</p> :
-                    <div className="mt-2 w-full flex flex-col items-center pb-10">
-                        <img src={data.imageUrl} alt="post-thumbnail" className="w-3/4" />
-                        <h2 className="text-4xl self-start px-36 font-medium mt-8">{data.title}</h2>
+                    <div className="mt-2 w-full flex flex-col items-center pb-10 md:px-0 px-4">
+                        <img src={data.imageUrl} alt="post-thumbnail" className="md:w-3/4" />
+                        <h2 className="text-4xl self-start md:px-36 font-medium md:mt-8 mt-4">{data.title}</h2>
                         <div
-                            className="max-w-full self-start px-36 mt-10"
+                            className="max-w-full self-start md:px-36 md:mt-10 mt-4"
                             dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
                         />
                     </div>
