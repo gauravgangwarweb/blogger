@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const postSlice = createSlice({
     name: "postSlice",
     initialState: {
-        postId: "653e1ebd5980adbf024f957b"
+        postId: "654df7717e799525fa51fac9"
     },
     reducers: {
         setPost: (state, link) => {

@@ -16,7 +16,8 @@ function NewPost() {
         imageUrl: "",
         publicId: "",
         userId: "",
-        body: ""
+        body: "",
+        token: Cookies.get("token") || undefined
     })
     const [isLoading, setIsLoading] = useState(false)
     const [token, setToken] = useState(undefined)
@@ -35,9 +36,11 @@ function NewPost() {
 
     const handleImageUpload = async (e) => {
         e.preventDefault();
+        console.log("Hiii")
         const file = e.target.files[0]
         const data = await imageUpload(file)
         if (data) {
+            console.log(data)
             setFormData({
                 ...formData,
                 imageUrl: data.url,
@@ -58,11 +61,7 @@ function NewPost() {
                 toastId
             })
         } else {
-            await axios.post(`${baseUrl}/post/new`, formData, {
-                headers: {
-                    Authorization: token,
-                },
-            })
+            await axios.post(`${baseUrl}/post/new`, formData)
                 .then((res) => {
                     setIsLoading(false)
                     console.log(res);
@@ -90,7 +89,7 @@ function NewPost() {
                 })
         }
     }
-
+    console.log(formData)
     return (
         <div
             className="w-full h-[calc(100vh-76px)]"

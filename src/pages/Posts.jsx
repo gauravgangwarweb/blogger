@@ -56,11 +56,11 @@ const Posts = () => {
                                     className="bg-white flex md:flex-row flex-col w-full px-3 py-3 rounded-lg cursor-pointer"
                                     onClick={() => {dispatch(setPost(post._id)); navigate("/post")}}
                                 >
-                                    <div className="md:w-2/6">
+                                    <div className="md:w-2/6 h-44">
                                         <img
                                             src={post.imageUrl}
                                             alt={post.publicId}
-                                            className="w-full rounded-md"
+                                            className="w-full rounded-md h-full"
                                         />
                                     </div>
                                     <div className="md:w-[calc(100%-33.33%)] px-3 flex flex-col">
